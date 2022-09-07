@@ -8,17 +8,16 @@ public class Point extends Shape {
 	private int x;
 	private int y;
 	
-	public Point() {
-		
-	}
+	
+	
 	
 	public Point(int x, int y) {
 		this.setX(x);
 		this.setY(y);
 	}
 	
-	public Point (int x, int y, Color color){
-		this(x, y);
+	public Point (int newX , int newY , Color color){
+		this(newX,newY);
 		this.setColor(color);
 	}
 	
