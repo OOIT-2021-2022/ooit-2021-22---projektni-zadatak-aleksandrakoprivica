@@ -1,12 +1,15 @@
 package geometry;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Donut extends Circle {
 	private int innerRadius;
+	private int newInnerRadius;
 
-	public Donut() {
-
+	public Donut(Point center, int radius, int innerRadius, boolean b, Color edgeColor, Color innerColor) {
+		super(center, radius, edgeColor, innerColor);
+		this.innerRadius=innerRadius;
 	}
 
 	public Donut(Point center, int radius, int innerRadius, boolean selected) {

@@ -2,7 +2,10 @@ package drawing;
 
 import javax.swing.JPanel;
 
+
+
 import geometry.Point;
+
 import geometry.Shape;
 
 import java.awt.Color;
@@ -20,11 +23,16 @@ public class PnlDrawing extends JPanel {
 	}
 	
 	
-	public void paint(Graphics g) {
+	public void paint (Graphics g) {
 		super.paint(g);
-		Iterator<Shape> it =shapes.iterator();
+		Iterator<Shape> it=shapes.iterator();
 		while(it.hasNext())
+		{
 			it.next().draw(g);
+		}
+		
+		
+		
 	}
 	
 	public void addShape(Shape shape) {

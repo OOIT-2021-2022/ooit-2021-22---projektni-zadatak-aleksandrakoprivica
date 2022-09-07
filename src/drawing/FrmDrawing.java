@@ -32,10 +32,6 @@ import java.awt.event.ActionEvent;
 public class FrmDrawing extends JFrame {
 
 	private JPanel contentPane;
-	private JToggleButton btnShapePoint;
-	private JToggleButton btnShapeLine;
-	private JToggleButton btnShapeRectangle;
-	private JToggleButton btnShapeDonut;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private Point startPoint = null;
 	private Color edgeColor = Color.black;
@@ -140,6 +136,138 @@ public class FrmDrawing extends JFrame {
 					if(dlgLine.getLine() != null) {
 						pnlDrawing.setShape(index, dlgLine.getLine());
 						pnlDrawing.repaint();
-					}}
+					}
+				} else if (shape instanceof Rectangle) {
+					DlgRectangle dlgRectangle = new DlgRectangle();
+					dlgRectangle.setRectangle((Rectangle)shape);
+					dlgRectangle.setVisible(true);
+					
+					if(dlgRectangle.getRectangle() != null) {
+						pnlDrawing.setShape(index, dlgRectangle.getRectangle());
+						pnlDrawing.repaint();
+					}
+				
+				}else if (shape instanceof Donut) {
+						DlgDonut dlgDonut = new DlgDonut();
+						dlgDonut.setDonut((Donut)shape);
+						dlgDonut.setVisible(true);
+						
+						if(dlgDonut.getDonut() != null) {
+							pnlDrawing.setShape(index, dlgDonut.getDonut());
+							pnlDrawing.repaint();
+						}
+				} else if (shape instanceof Circle) {
+					DlgCircle dlgCircle = new DlgCircle();
+					dlgCircle.setCircle((Circle)shape);
+					dlgCircle.setVisible(true);
+					
+					if(dlgCircle.getCircle() != null) {
+						pnlDrawing.setShape(index, dlgCircle.getCircle());
+						pnlDrawing.repaint();
+					}
+				} 
+			}
+		});
+		btnModify.setEnabled(false);
+		btnModify.setAlignmentX(0.5f);
+		panel_3.add(btnModify);
+		
+		JButton btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (JOptionPane.showConfirmDialog(null, "Do you really want to delete selected shape?", "Yes", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) 
+					pnlDrawing.removeSelected();
+			}
+		});
+		btnDelete.setEnabled(false);
+		btnDelete.setAlignmentX(0.5f);
+		panel_3.add(btnDelete);
+		
+		pnlDrawing.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Point clickPosition = new Point(e.getX(), e.getY());
+				
+				pnlDrawing.deselect();
+				
+				if (btnSelect.isSelected()) {
+					if(pnlDrawing.select(clickPosition)) {
+						btnModify.setEnabled(true);
+						btnDelete.setEnabled(true);
+					} else {
+						btnModify.setEnabled(false);
+						btnDelete.setEnabled(false);
+					}
+					return;
+				}
+				
+				if(btnShapePoint.isSelected()) {
+					DlgPoint dlgPoint = new DlgPoint();
+					dlgPoint.setPoint(clickPosition);
+					dlgPoint.setColors(edgeColor);
+					dlgPoint.setVisible(true);
+					if(dlgPoint.getPoint() != null) {
+					pnlDrawing.addShape(dlgPoint.getPoint());
+					}
+				}
+
+				else if(btnShapeLine.isSelected()) {
+					if(startPoint == null) {
+						startPoint = clickPosition;
+					} else {
+						DlgLine dlgLine = new DlgLine();
+						dlgLine.setLine(new Line(startPoint, clickPosition));
+						dlgLine.setColors(edgeColor);
+						dlgLine.setVisible(true);
+						if(dlgLine.getLine() != null) {
+							pnlDrawing.addShape(dlgLine.getLine());
+						}
+						startPoint = null;
+					}
+				}
+				
+				else if(btnShapeRectangle.isSelected()) {
+					DlgRectangle dlgRectangle = new DlgRectangle();
+					dlgRectangle.setPoint(clickPosition);
+					dlgRectangle.setColors(edgeColor, innerColor);
+					dlgRectangle.setVisible(true);
+					if(dlgRectangle.getRectangle() != null) {
+					pnlDrawing.addShape(dlgRectangle.getRectangle());
+					}
+					}
+				
+				else if(btnShapeCircle.isSelected()) {
+					DlgCircle dlgCircle = new DlgCircle();
+					dlgCircle.setPoint(clickPosition);
+					dlgCircle.setColors(edgeColor, innerColor);
+					dlgCircle.setVisible(true);
+					if(dlgCircle.getCircle() != null) {
+					pnlDrawing.addShape(dlgCircle.getCircle());
+					}
+					}
+				
+				else if(btnShapeDonut.isSelected()) {
+					DlgDonut dlgDonut = new DlgDonut();
+					dlgDonut.setPoint(clickPosition);
+					dlgDonut.setColors(edgeColor, innerColor);
+					dlgDonut.setVisible(true);
+					if(dlgDonut.getDonut() != null) {
+					pnlDrawing.addShape(dlgDonut.getDonut());
+					}
+					}
+
+
+			}
+		});
+	}
+
+}
+		
+
+	
+			
+	
+					
 	
 

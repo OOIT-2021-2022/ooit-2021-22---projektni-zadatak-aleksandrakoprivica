@@ -1,5 +1,6 @@
 package geometry;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Rectangle extends Shape{
@@ -7,7 +8,12 @@ public class Rectangle extends Shape{
 	private int width;
 	private int height;
 
-	public Rectangle() {
+	public Rectangle(Point upperLeftPoint, int width, int height, Color edgeColor, Color innerColor) {
+		super(edgeColor, innerColor);
+		this.upperLeftPoint= upperLeftPoint;
+		this.width = width;
+		this.height= height;
+		
 	}
 
 	public Rectangle(Point upperLeftPoint, int width, int height) {
@@ -54,7 +60,19 @@ public class Rectangle extends Shape{
 	
 	@Override
 	public void draw(Graphics g) {
-		g.drawRect(upperLeftPoint.getX(), upperLeftPoint.getY(), width, height);		
+		
+			g.setColor(getEdgeColor());
+			g.drawRect(upperLeftPoint.getX(), upperLeftPoint.getY(), width, height);
+			g.setColor(getInnerColor());
+			g.fillRect(this.upperLeftPoint.getX() + 1, this.upperLeftPoint.getY() + 1, this.width - 1, this.height - 1);	
+		if(isSelected()) {
+			g.setColor(Color.blue);
+			g.drawRect(upperLeftPoint.getX() - 2, upperLeftPoint.getY() - 2, 4, 4);
+			g.drawRect(upperLeftPoint.getX() + width - 2, upperLeftPoint.getY() - 2, 4, 4);
+			g.drawRect(upperLeftPoint.getX() - 2, upperLeftPoint.getY() + height - 2, 4, 4);
+			g.drawRect(upperLeftPoint.getX() + width  - 2, upperLeftPoint.getY() + height - 2, 4, 4);
+			g.setColor(Color.black);
+		}
 	}
 	
 	@Override

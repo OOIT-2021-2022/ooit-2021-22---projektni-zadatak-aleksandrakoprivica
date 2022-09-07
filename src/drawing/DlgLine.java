@@ -35,7 +35,7 @@ public class DlgLine extends JDialog {
 
 	public DlgLine() {
 		setResizable(false);
-		setTitle("Luka Stojanovic IT 52/2021");
+		setTitle("Aleksandra Koprivica IT1/2021");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModal(true);
 		setBounds(100, 100, 500, 231);

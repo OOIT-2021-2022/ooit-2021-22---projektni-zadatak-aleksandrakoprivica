@@ -13,7 +13,7 @@ public class Drawing extends JPanel{
 	public static void main(String args[]) {
 		JFrame frame = new JFrame("Drawing");
 		frame.setSize(800, 600);
-		JPanel drawing = new Drawing();
+		Drawing drawing = new Drawing();
 		frame.getContentPane().add(drawing);
 		frame.setVisible(true);
 	}

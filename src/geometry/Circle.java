@@ -7,9 +7,7 @@ public class Circle extends Shape {
 	protected Point center;
 	private int radius;
 
-	public Circle() {
-
-	}
+	
 
 	public Circle(Point center, int radius) {
 		this.center = center;
