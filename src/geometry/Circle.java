@@ -1,12 +1,13 @@
 package geometry;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Circle extends Shape{
 	protected Point center;
 	private int radius;
 
-	public Circle() {
+	public Circle(Point point, int newRadius, Color edgeColor, Color innerColor) {
 
 	}
 
@@ -93,5 +94,6 @@ public class Circle extends Shape{
 		// Center=(x,y), radius= radius
 		return "Center=" + center + ", radius=" + radius;
 	}
-
+	
+	
 }

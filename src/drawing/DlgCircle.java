@@ -33,7 +33,7 @@ public class DlgCircle extends JDialog {
 	 */
 	public DlgCircle() {
 		setResizable(false);
-		setTitle("Aleksandra Koprivica IT1-2021");
+		setTitle("Aleksandra Koprivica");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModal(true);
 		setBounds(100, 100, 300, 180);
@@ -154,6 +154,6 @@ public class DlgCircle extends JDialog {
 		txtY.setText("" + circle.getCenter().getY());
 		txtRadius.setText("" + circle.getRadius());
 		edgeColor = circle.getColor();
-		innerColor = circle.getInnerColor();
+		innerColor = circle.getColor();
 	}
 }
