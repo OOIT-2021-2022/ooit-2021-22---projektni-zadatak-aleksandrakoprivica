@@ -1,6 +1,7 @@
 package drawing;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -112,4 +113,33 @@ public class FrmDrawing extends JFrame {
 		
 		JToggleButton btnSelect = new JToggleButton("Select");
 		panel_3.add(btnSelect);
-		btnSelect.setAlignmentX(0.5f); }}
+		btnSelect.setAlignmentX(0.5f); 
+		
+		JButton btnModify = new JButton("Modify");
+		btnModify.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int index = pnlDrawing.getSelected();
+				if (index == -1) return;
+				
+				Shape shape = pnlDrawing.getShape(index);
+				
+				if (shape instanceof Point) {
+					DlgPoint dlgPoint = new DlgPoint();
+					dlgPoint.setPoint((Point)shape);
+					dlgPoint.setVisible(true);
+					
+					if(dlgPoint.getPoint() != null) {
+						pnlDrawing.setShape(index, dlgPoint.getPoint());
+						pnlDrawing.repaint();
+					}
+				} else if (shape instanceof Line) {
+					DlgLine dlgLine = new DlgLine();
+					dlgLine.setLine((Line)shape);
+					dlgLine.setVisible(true);
+					
+					if(dlgLine.getLine() != null) {
+						pnlDrawing.setShape(index, dlgLine.getLine());
+						pnlDrawing.repaint();
+					}}
+	
+

@@ -8,7 +8,7 @@ public class Line extends Shape {
 	private Point startPoint;
 	private Point endPoint;
 
-	public Line() {
+	public Line(Point point, Point point2, boolean b, Color color) {
 	}
 
 	public Line(Point startPoint, Point endPoint) {

@@ -4,118 +4,109 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Point extends Shape {
-
-	/*
-	 * public int x; public int y; public boolean selected;
-	 */
+	
 	private int x;
 	private int y;
-
+	
 	public Point() {
-
-	}
-
-	public Point(int x, int y) {
-		this.x = x;
-		setY(y);
+		
 	}
 	
-
-	public Point(int x, int y, Color edgeColor) {
-		super(edgeColor);
-		this.x = x;
-		this.y = y;
-		
+	public Point(int x, int y) {
+		this.setX(x);
+		this.setY(y);
 	}
-
-	public Point(int x, int y, boolean selected) {
-		/*
-		 * this.x=x; setY(y);
-		 */
-		// mora da bude prva naredba
+	
+	public Point (int x, int y, Color color){
 		this(x, y);
+		this.setColor(color);
+	}
+	
+	public Point(int x, int y, boolean selected) {
+		this(x,y);
 		this.selected = selected;
 	}
-
-	public void draw(Graphics g) {
-		g.setColor(getEdgeColor());
-		g.drawLine(x - 2, y, x + 2, y);
-		g.drawLine(x, y - 2, x, y + 2);
-		
-		if(isSelected()) {
-			g.setColor(Color.BLUE);
-			g.drawRect(x-2, y-2, 4, 4);
-			g.setColor(Color.black);
+	
+	public int getX() {
+		return this.x;
+	}
+	
+	public void setX(int x_coord) throws IllegalArgumentException {
+		if (x_coord < 0) {
+			throw new IllegalArgumentException("Value cannot be negative!");
 		}
+		this.x = x_coord;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public void setY(int y_coord) throws IllegalArgumentException {
+		if (y_coord < 0) {
+			throw new IllegalArgumentException("Value cannot be negative!");
+		}
+		this.y = y_coord;
 	}
 
+	public double distance(int x2, int y2) {
+		double dx = x2 - this.x;
+		double dy = y2 - this.y;
+		double d = Math.sqrt(dx*dx + dy*dy);
+		return d;
+	}
+	
+	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Point) {
-			Point pomocna = (Point) obj;
-			if (this.x == pomocna.x && this.y == pomocna.y) {
+		if(obj instanceof Point) {
+			Point p = (Point)obj;
+			if(this.x == p.x && this.y == p.y) {
 				return true;
-			}
+			}else{
+				return false;
+			}			
 		}
 		return false;
 	}
-
+	
 	public boolean contains(int x, int y) {
 		return this.distance(x, y) <= 2;
 	}
-
-	public boolean contains(Point clickPoint) {
-		return this.distance(clickPoint.x, clickPoint.getY()) <= 2;
+	
+	public boolean contains(Point p) {
+		return this.distance(p.getX(), p.getY()) <= 2;
 	}
-
-	public double distance(int xPoint2, int yPoint2) {
-		double dx = this.x - xPoint2;
-		double dy = this.y - yPoint2;
-		double d = Math.sqrt(dx * dx + dy * dy);
-		return d;
+	
+	public String toString() {
+		return "("+ this.x+","+this.y+ ")";
 	}
-
-	@Override
+	
+	public void draw(Graphics g) {
+		g.drawLine(this.x, this.y, this.x, this.y);
+		if(this.selected) {
+			g.setColor(Color.BLUE);
+			g.drawRect(x-2, y-2, 4, 4);
+			g.setColor(Color.BLACK);
+		}
+	}
+	
+	public void moveBy(int x, int y) {
+		this.x = this.x + x;
+		this.y += y;
+	}
+	
 	public void moveTo(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
-
-	@Override
-	public void moveBy(int byX, int byY) {
-		x += byX;
-		this.y += byY;
-	}
-
-	@Override
+	
 	public int compareTo(Object obj) {
-		if (obj instanceof Point) {
-			Point shapeToCompare = (Point) obj;
-			return (int) (this.distance(0, 0) - shapeToCompare.distance(0, 0));
+		if(obj instanceof Point) {
+			double d1 = this.distance(0, 0);
+			double d2 = ((Point)obj).distance(0, 0);
+			return (int)(d1 - d2);
+		}else {
+			return 0;
 		}
-		return 0;
 	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getX() {
-		return this.x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	public String toString() {
-		// ispravno ali mi ne zelimo tako
-		// return String.valueOf(x);
-
-		return "(" + x + "," + y + ")";
-	}
-
 }
