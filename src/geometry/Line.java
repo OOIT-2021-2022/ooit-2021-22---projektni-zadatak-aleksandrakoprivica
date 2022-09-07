@@ -1,8 +1,10 @@
 package geometry;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
-public class Line extends Shape{
+public class Line extends Shape {
+
 	private Point startPoint;
 	private Point endPoint;
 
@@ -15,14 +17,17 @@ public class Line extends Shape{
 	}
 
 	public Line(Point startPoint, Point endPoint, boolean selected) {
-		//this(startPoint, endPoint);
-		//setSelected(selected);
-		//drugi nacin
-		super(selected);
+		this(startPoint, endPoint);
+		this.selected = selected;
+	}
+
+	public Line(Point startPoint, Point endPoint,Color edgeColor) {
+		super(edgeColor);
 		this.startPoint = startPoint;
 		this.endPoint = endPoint;
+		
 	}
-	
+
 	public boolean equals(Object obj) {
 		if (obj instanceof Line) {
 			Line pomocna = (Line) obj;
@@ -33,18 +38,16 @@ public class Line extends Shape{
 		} else
 			return false;
 	}
-	
+
 	public boolean contains(int x, int y) {
 		return this.startPoint.distance(x, y) + this.endPoint.distance(x, y) - length() <= 2;
 	}
-	
-	public double length() {
-		return this.startPoint.distance(this.endPoint.getX(), this.endPoint.getY());
-	}
-	
-	@Override
-	public void draw(Graphics g) {
-		g.drawLine(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());		
+
+@Override
+	public boolean contains(Point clickPoint) {
+	System.out.println("hehehe");
+		return this.startPoint.distance(clickPoint.getX(), clickPoint.getY())
+				+ this.endPoint.distance(clickPoint.getX(), clickPoint.getY()) - length() <= 2;
 	}
 	
 	@Override
@@ -52,28 +55,28 @@ public class Line extends Shape{
 		startPoint.moveTo(x, y);
 		endPoint.moveTo(x, y);
 	}
-
+	
 	@Override
-	public void moveBy(int x, int y) {
-		startPoint.moveBy(x, y);
-		endPoint.moveBy(x, y);	
+	public void moveBy(int byX, int byY) {
+		startPoint.moveBy(byX, byY);
+		endPoint.moveBy(byX, byY);
 	}
 	
 	@Override
 	public int compareTo(Object obj) {
-		if(obj instanceof Line) {
-			Line lineToCompare = (Line)obj;
-			return (int)(this.length() - lineToCompare.length());
-		}			
+		if (obj instanceof Line) {
+			Line shapeToCompare = (Line) obj;
+			return (int) (this.length() - shapeToCompare.length());
+		}
 		return 0;
+	}
+
+	public Point getStartPoint() {
+		return this.startPoint; 
 	}
 
 	public void setStartPoint(Point startPoint) {
 		this.startPoint = startPoint;
-	}
-
-	public Point getStartPoint() {
-		return this.startPoint;
 	}
 
 	public Point getEndPoint() {
@@ -83,9 +86,26 @@ public class Line extends Shape{
 	public void setEndPoint(Point endPoint) {
 		this.endPoint = endPoint;
 	}
-	
+
+	public double length() {
+		return startPoint.distance(endPoint.getX(), getEndPoint().getY());
+	}
+
 	public String toString() {
 		return startPoint + "-- >" + endPoint;
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		g.setColor(this.getEdgeColor());
+		g.drawLine(this.startPoint.getX(), this.startPoint.getY(), this.endPoint.getX(), this.endPoint.getY());
+		
+		if(isSelected()) {
+			g.setColor(Color.BLUE);
+			g.drawRect(startPoint.getX()-2, startPoint.getY()-2, 4, 4);
+			g.drawRect(endPoint.getX()-2, endPoint.getY()-2, 4, 4);
+			g.setColor(Color.black);
+		}
 	}
 
 }

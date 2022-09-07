@@ -3,25 +3,43 @@ package geometry;
 import java.awt.Color;
 import java.awt.Graphics;
 
-
-
-public abstract class Shape implements Moveable, Comparable {
-
+public abstract class Shape implements Moveable, Comparable{
 	protected boolean selected;
-	private Color color;
-
+	private Color edgeColor;
+	private Color innerColor;
+	
 	public Shape() {
 
 	}
 
-	public Shape(Color color) {
-		this.color = color;
+	public Shape(boolean selected, Color edgeColor, Color innerColor) {
+		super();
+		this.selected = selected;
+		this.edgeColor = edgeColor;
+		this.innerColor = innerColor;
+	}
+	
+	
+	
+
+	public Shape(Color edgeColor) {
+		this.edgeColor = edgeColor;
 	}
 
-	public Shape(Color color, boolean selected) {
-		this(color);
+	public Shape( Color edgeColor, Color innerColor) {
+		super();
+		this.selected = false;
+		this.edgeColor = edgeColor;
+		this.innerColor = innerColor;
+	}
+
+	public Shape(boolean selected) {
 		this.selected = selected;
 	}
+	
+	public abstract boolean contains(Point x);
+	public abstract boolean contains(int x, int y);
+	public abstract void draw(Graphics g);
 
 	public boolean isSelected() {
 		return selected;
@@ -31,17 +49,21 @@ public abstract class Shape implements Moveable, Comparable {
 		this.selected = selected;
 	}
 
-	public Color getColor() {
-		return color;
+	public Color getEdgeColor() {
+		return edgeColor;
 	}
 
-	public void setColor(Color color) {
-		this.color = color;
+	public void setEdgeColor(Color edgeColor) {
+		this.edgeColor = edgeColor;
 	}
 
+	public Color getInnerColor() {
+		return innerColor;
+	}
 
-	public abstract boolean contains(int x, int y);
-
-	public abstract void draw(Graphics g);
-
+	public void setInnerColor(Color innerColor) {
+		this.innerColor = innerColor;
+	}
+	
+	
 }

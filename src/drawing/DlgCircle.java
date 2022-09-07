@@ -153,7 +153,7 @@ public class DlgCircle extends JDialog {
 		txtX.setText("" + circle.getCenter().getX());
 		txtY.setText("" + circle.getCenter().getY());
 		txtRadius.setText("" + circle.getRadius());
-		edgeColor = circle.getColor();
-		innerColor = circle.getColor();
+		edgeColor = circle.getEdgeColor();
+		innerColor = circle.getInnerColor();
 	}
 }
