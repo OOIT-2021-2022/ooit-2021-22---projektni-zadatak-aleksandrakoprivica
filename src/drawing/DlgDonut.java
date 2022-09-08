@@ -31,7 +31,7 @@ public class DlgDonut extends JDialog {
 
 	public DlgDonut() {
 		setResizable(false);
-		setTitle("Aleksandra Koprivica IT1/2021");
+		setTitle("Aleksandra Koprivica IT1-2021");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModal(true);
 		setBounds(100, 100, 300, 210);
